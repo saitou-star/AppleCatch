@@ -44,10 +44,10 @@ public class Database : MonoBehaviour
     // データベースからランキング取得
     public IEnumerator GetRanking()
     {
-        // リクエスト先URL
+        // リクエスト先URL（文字列）
         string url = "http://localhost/applecatch/getranking.py";
 
-        // GETリクエスト送信
+        // GETリクエスト送信(データベース等メモリを使うものは閉じる動作をしなければならないが、using(){}を使うと閉じる作業を勝手にしてくれる)
         using (UnityWebRequest uwr = UnityWebRequest.Get(url))
         {
             yield return uwr.SendWebRequest();
@@ -66,7 +66,7 @@ public class Database : MonoBehaviour
             }
         }
 
-        // ShowRanking();
+        ShowRanking();
         foreach (User user in users)
         {
             Debug.Log($"{user.name}:{user.score}");
