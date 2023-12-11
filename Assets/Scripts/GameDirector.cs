@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class GameDirector : MonoBehaviour
 {
+    public static GameDirector instance;
     GameObject timerText;
     GameObject pointText;
     public Text highScoreText;
@@ -25,8 +26,21 @@ public class GameDirector : MonoBehaviour
         this.point /= 2;
     }
 
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     void Start()
     {
+        DontDestroyOnLoad(this.gameObject);
         this.timerText = GameObject.Find("Time");
         this.pointText = GameObject.Find("Point");
         this.generator = GameObject.Find("ItemGenerator");
